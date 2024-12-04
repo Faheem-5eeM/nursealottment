@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="views/styles.css">
+</head>
+<body>
+    <h2>Welcome, <%= patient.name %></h2>
+
+    <h3> Nurses</h3>
+    <div id="patients" class="patients-container">
+        <% if (nurses && nurses.length > 0) { %>
+            <% nurses.forEach(function(nurse) { %>
+                <div class="patient-card">
+                    <strong>Name:</strong> <%= nurse.name %><br>
+                    <strong>Contact:</strong> <%= nurse.contact %><br>
+                    <strong>Email:</strong> <%= nurse.email %><br>
+                    <strong>Gender:</strong> <%= nurse.gender %><br>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No nurses found.</p>
+        <% } %>
+    </div>
+
+    <a href="/logout" id="header__button">Logout</a>
+</body>
+</html>

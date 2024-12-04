@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/form.css">
+</head>
+<body>
+    <!-- <h1 class="header">Register Page</h1> -->
+    <div class="container">
+        <form action="/post" method="post" autocomplete="off" >
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="contact">Contact number:</label>
+            <input type="text" id="contact" name="contact" maxlength="13" required oninput="autoPrefix()">
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+
+            <label for="adhaar">Aadhaar number:</label>
+            <input type="text" name="adhaar" id="adhaar" pattern="\d{12}" maxlength="12" required title="Aadhaar number must be exactly 12 digits" oninput="validateAadhaar()">
+
+            <label for="medical">Nurse Unique ID:</label>
+            <input type="text" name="unique" id="unique" placeholder="12345/ABC/2021" required>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" required>
+                <option value="" disabled selected hidden> Select Gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to auto-prefix contact number with +91
+        function autoPrefix() {
+            const contactInput = document.getElementById("contact");
+            const value = contactInput.value;
+
+            // If the value doesn't start with '+91', prepend it
+            if (!value.startsWith("+91")) {
+                contactInput.value = "+91" + value.replace(/^(\+91)/, "");
+            }
+
+            // Limit the input to 13 characters: '+91' (3 chars) + 10 digits
+            if (contactInput.value.length > 13) {
+                contactInput.value = contactInput.value.slice(0, 13);
+            }
+        }
+
+        // Function to validate Aadhaar number
+        // function validateAadhaar() {
+        //     const aadhaarInput = document.getElementById("adhaar");
+        //     const aadhaarValue = aadhaarInput.value;
+
+        //     // Check if the Aadhaar number is exactly 12 digits
+        //     if (!/^\d{12}$/.test(aadhaarValue)) {
+        //         aadhaarInput.setCustomValidity("Aadhaar number must be exactly 12 digits.");
+        //     } else {
+        //         aadhaarInput.setCustomValidity(""); // Reset the custom validity if valid
+        //     }
+        // }
+
+        // // Verhoeff Algorithm to validate Aadhaar Number
+        // function isValidAadhaar(aadhaar) {
+        //     const d = [
+        //         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        //         [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        //         [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
+        //         [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
+        //         [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
+        //         [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
+        //         [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
+        //         [7, 8, 9, 0, 1, 2, 3, 4, 5, 6],
+        //         [8, 9, 0, 1, 2, 3, 4, 5, 6, 7],
+        //         [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+        //     ];
+
+        //     const p = [
+        //         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        //         [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        //         [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
+        //         [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
+        //         [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
+        //         [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
+        //         [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
+        //         [7, 8, 9, 0, 1, 2, 3, 4, 5, 6],
+        //         [8, 9, 0, 1, 2, 3, 4, 5, 6, 7],
+        //         [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+        //     ];
+
+        //     const inv = [
+        //         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        //         [1, 0, 3, 2, 5, 4, 7, 6, 9, 8],
+        //         [2, 3, 0, 1, 6, 7, 4, 5, 8, 9],
+        //         [3, 2, 1, 0, 7, 6, 5, 4, 9, 8],
+        //         [4, 5, 6, 7, 0, 1, 2, 3, 8, 9],
+        //         [5, 4, 7, 6, 1, 0, 3, 2, 9, 8],
+        //         [6, 7, 4, 5, 2, 3, 0, 1, 9, 8],
+        //         [7, 6, 5, 4, 3, 2, 1, 0, 9, 8],
+        //         [8, 9, 6, 7, 4, 5, 2, 3, 0, 1],
+        //         [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+        //     ];
+
+        //     const c = [
+        //         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        //         [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+        //         [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
+        //         [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
+        //         [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
+        //         [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
+        //         [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
+        //         [7, 8, 9, 0, 1, 2, 3, 4, 5, 6],
+        //         [8, 9, 0, 1, 2, 3, 4, 5, 6, 7],
+        //         [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+        //     ];
+
+        //     let number = aadhaar.split('').map(Number);
+        //     let check = 0;
+
+        //     for (let i = 0; i < 12; i++) {
+        //         check = c[check][p[i % 8][number[i]]];
+        //     }
+
+        //     return check === 0;
+        // }
+
+        // // Validate the form before submission
+        // function validateForm() {
+        //     const aadhaar = document.getElementById("adhaar").value;
+        //     if (!isValidAadhaar(aadhaar)) {
+        //         alert("Invalid Aadhaar number.");
+        //         return false; // Prevent form submission if invalid
+        //     }
+        //     return true; // Allow form submission
+        // }
+    </script>
+</body>
+</html>
+
+<!-- onsubmit="return validateForm() -->

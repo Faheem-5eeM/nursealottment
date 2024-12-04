@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/form.css">
+</head>
+<body>
+    <!-- user reg -->
+    <!-- <h1 class="header">Register Page</h1> -->
+    <div class="container">
+        <form action="/postva" method="post" autocomplete="off">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="contact">Contact number:</label>
+            <input type="text" id="contact" name="contact" pattern="^\+91\d{10}$" maxlength="13" required title="Phone number must be 10 digits starting with +91" oninput="autoPrefix()">
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+            <label for="adhaar">Aadhaar number:</label>
+            <input type="text" name="adhaar" id="adhaar" pattern="\d{12}" maxlength="12" required title="Aadhaar number must be exactly 12 digits">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" placeholder="Select gender">
+                <option value="" disabled selected hidden> Select Gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+    <script>
+        // Function to auto-prefix contact number with +91
+        function autoPrefix() {
+            const contactInput = document.getElementById("contact");
+            const value = contactInput.value;
+
+            // If the value doesn't start with '+91', prepend it
+            if (!value.startsWith("+91")) {
+                contactInput.value = "+91" + value.replace(/^(\+91)/, "");
+            }
+
+            // Limit the input to 13 characters: '+91' (3 chars) + 10 digits
+            if (contactInput.value.length > 13) {
+                contactInput.value = contactInput.value.slice(0, 13);
+            }
+        }
+        </script>
+</body>
+</html>

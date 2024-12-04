@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add your styles here */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .header__button a {
+    background-color: #ffcc00;
+    color: black;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    
+    /* Positioning the button at the top-left corner */
+    position: fixed;
+    top: 0;          
+    right: 0;          
+    z-index: 1000;     
+}
+        .card {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+        
+        canvas {
+        width: 100%;   /* Make the canvas fill the parent container */
+        height: 500px; /* Increase the height for a bigger chart */
+        margin: 20px auto;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <div class="stats">
+            <div class="card" data-nurse-count="<%= nurseCount %>">
+                <h2>Total Nurses</h2>
+                <p id="nurseCount"><%= nurseCount %></p>  <!-- Inject nurse count here -->
+            </div>
+            <div class="card" data-patient-count="<%= patientCount %>">
+                <h2>Total Patients</h2>
+                <p id="patientCount"><%= patientCount %></p> <!-- Inject patient count here -->
+            </div>
+        </div>
+
+        <h3>Patient vs Nurse Count</h3>
+        <canvas id="myChart"></canvas>
+    </div>
+    <br><br>
+    
+
+    <script>
+        // Get the data attributes from the HTML elements
+        const nurseCount = document.querySelector('.card[data-nurse-count]').dataset.nurseCount;
+        const patientCount = document.querySelector('.card[data-patient-count]').dataset.patientCount;
+
+        // Create the chart data
+        const data = {
+            labels: ['Nurses', 'Patients'],
+            datasets: [{
+                label: 'Total Count',
+                data: [nurseCount, patientCount],  // Use the injected data here
+                backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuration options for the chart
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Initialize the chart using Chart.js
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, config);
+    </script>
+    <div class="header__button">
+        <a href="/logout">Logout</a>
+    </div>
+
+</body>
+</html>

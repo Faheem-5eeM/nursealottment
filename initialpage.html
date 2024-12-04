@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/form1.css">
+    <!-- <script src="script.js"></script> -->
+
+<header class="header">
+    <a href="/" class="header__logo">SmartCare365</a>
+  
+    <nav class="header__nav">
+      <ul>
+        <li>
+          <a href="/" class="">Home</a>
+        </li>
+        <li>
+          <a href="/about" class="">About</a>
+        </li>
+        <li>
+          <a href="/contact" class="">Contact</a>
+        </li>
+      </ul>
+  
+    </nav>
+  
+    <div class="header__button">
+      <a href="/logout">
+       Settings
+      </a>
+    </div>
+  
+  </header>
+  <body>
+    <div class="containers">
+        <select name="initial" id="initial" aria-label="Select registration type" onchange="showLoginSignupOptions()">
+            <option value="" disabled selected hidden>You would like to register as</option>
+            <option value="Nurse">Nurse</option>
+            <option value="Patient">Patient</option>
+            <option value="Admin">Admin</option>
+        </select>
+    </div>
+
+ </div>
+   <!-- Login/Signup Options (Initially Hidden) -->
+   <div id="loginSignup" style="display:none;">
+    <button id="loginLink">Login</button>
+    <button id="signupLink">Signup</button>
+</div>
+</div>
+<script>
+   
+      function showLoginSignupOptions() {
+        const selectBox = document.getElementById('initial');
+        const loginSignupDiv = document.getElementById('loginSignup');
+        const loginLink = document.getElementById('loginLink');
+        const signupLink = document.getElementById('signupLink');
+
+        if (selectBox.value === "Nurse") {
+            loginSignupDiv.style.display = "block";
+            signupLink.style.display = "inline-block"; // Show Signup button for Nurse
+            loginLink.onclick = () => {
+                window.location.href = '/nurse-login';  // Redirect to Nurse Login page
+            };
+            signupLink.onclick = () => {
+                window.location.href = '/nurse-register'; // Redirect to Nurse Registration page
+            };
+        } else if (selectBox.value === "Patient") {
+            loginSignupDiv.style.display = "block";
+            signupLink.style.display = "inline-block"; // Show Signup button for Patient
+            loginLink.onclick = () => {
+                window.location.href = '/user-login';  // Redirect to Patient Login page
+            };
+            signupLink.onclick = () => {
+                window.location.href = '/user-register'; // Redirect to Patient Registration page
+            };
+        } else if (selectBox.value === "Admin") {
+            loginSignupDiv.style.display = "block";
+            signupLink.style.display = "none"; // Hide Signup button for Admin
+            loginLink.onclick = () => {
+                window.location.href = '/admin-login';  // Redirect to Admin Login page
+            };
+        } else {
+            loginSignupDiv.style.display = "none";  // Hide login/signup options for other selections
+        }
+    }
+</script>
+
+  </body>
+  <footer class="footer">
+    <p>&copy; <span id="year">2024</span> NurseOldpatientApp • Built with NodeJs & MongoDB</p>
+  </footer>
+ 
+  </html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Dashboard</title>
+    <link rel="stylesheet" href="views/styles.css"> <!-- Ensure the link to CSS is correct -->
+</head>
+<body>
+    <h2>Welcome, <%= nurse.name %></h2>
+
+    <h3> Patients</h3>
+    <div id="patients" class="patients-container">
+        <% if (patients && patients.length > 0) { %>
+            <% patients.forEach(function(patient) { %>
+                <div class="patient-card">
+                    <h4><%= patient.name %></h4>
+                    <p><strong>Contact:</strong> <%= patient.contact %></p>
+                    <p><strong>Email:</strong> <%= patient.email %></p>
+                    <p><strong>Gender:</strong> <%= patient.gender %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No patients found.</p>
+        <% } %>
+    </div>
+
+    <div class="header__button">
+        <a href="/logout">
+         Logout
+        </a>
+      </div>
+
+ 
+</body>
+</html>

@@ -1,0 +1,224 @@
+*{
+  padding: 0;;
+  margin: 0;}
+  body{
+    background-color: white;
+    font-family: Arial,sans-seriff;
+}
+.container{
+    padding: 10px;
+    max-width: 400px;
+    margin: 100px auto;
+    background-color: black;
+    color: rgb(254, 252, 252);
+    border-radius: 20px;
+    /* box-shadow: 0 0 5px rgb(222, 24, 24); */
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+form label{
+    font-size:25px;
+    margin-bottom: 10px;
+}
+form input{
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+form select{
+    padding: 8px;
+}
+form button{
+    padding: 8px;
+    background-color: rgb(56, 130, 226);
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+/* jhejhrhe */
+.header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "logo button"
+    "menu menu";
+    padding-top: 10px;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .header {
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: 
+      "logo menu button";
+    }
+  }
+  
+  .header__logo {
+    font-weight: 800;
+    font-size: 25px;
+    text-decoration: none;
+    grid-area: logo;
+  }
+  
+  .header__logo:hover {
+    text-decoration: underline;
+  }
+  
+  .header__nav {
+    justify-content: center;
+    display: flex;
+    grid-area: menu;
+  }
+  
+  .header__logo, .header__nav, .header__button {
+    width: 100%;
+  }
+  
+  .header__button {
+    display: flex;
+    justify-content: end;
+    grid-area: button;
+  }
+  
+  .header__button button {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+    border: 0;
+    padding: 6px 12px;
+    background: none;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--black);
+  }
+  
+  .header__button button:hover {
+    border: 2px solid var(--black);
+  }
+  
+  /* Header -> Navigation */
+  .header__nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+    font-weight: 600;
+    padding: 0;
+  }
+  
+  .header__nav ul a {
+    padding: 10px;
+    text-decoration: none;
+  }
+ 
+   .containers {
+    display: flex;                
+    justify-content: center;      
+    align-items: center;         
+    height: 60vh;                
+  }
+  
+  /* Style for the select element */
+  .initialpage select {
+    width: 200px;                
+    height: 50px;                 
+    font-size: 18px;            
+    padding: 10px;                
+    border-radius: 5px;   
+    border: 1px solid #ccc;    
+  } */
+  .containers {
+    display: flex;
+ justify-content: center;      
+   align-items: center;          
+ height: 100vh;                
+    background-color: #f4f4f4;    
+}
+
+/* Styling the select box */
+select {
+    width: 250px;                 
+    height: 45px;          
+    padding: 10px;           
+    font-size: 16px;              
+    border: 2px solid #ccc;
+    border-radius: 8px;   
+    background-color: white;     
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  
+    transition: all 0.3s ease;    
+}
+
+/* Hover effect */
+select:hover {
+    border-color: #888;          /* Change border color on hover */
+}
+
+/* Focus effect */
+select:focus {
+    outline: none;              
+    border-color: #5D9BFF;      
+    box-shadow: 0px 0px 5px rgba(93, 155, 255, 0.5); /* Add focus shadow */
+}
+
+/* Option styling */
+option {
+    padding: 10px;               
+    font-size: 16px;             
+}
+
+/* Styling for placeholder (default value) */
+option[disabled] {
+    color: #999;               
+}
+  .header__nav ul a.active {
+    color: #7E7E7E;
+  }
+  #loginSignup {
+    display: none;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Style for the Login/Signup buttons */
+#loginSignup button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 150px;
+}
+
+#loginSignup button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+#loginLink {
+    background-color: #4CAF50; /* Green for Login */
+}
+
+#signupLink {
+    background-color: #007BFF; /* Blue for Signup */
+}
+
+  
+  .header__nav ul a:hover {
+    text-decoration: underline;
+  }
+  .footer {
+    margin: 4rem;
+    text-align: center;
+  }
+  
