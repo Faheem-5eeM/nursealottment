@@ -3,48 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Patient Registration</title>
     <link rel="stylesheet" href="/form.css">
 </head>
 <body>
-    <!-- user reg -->
-    <!-- <h1 class="header">Register Page</h1> -->
     <div class="container">
-        <form action="/postva" method="post" autocomplete="off">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name">
-            <label for="contact">Contact number:</label>
-            <input type="text" id="contact" name="contact" pattern="^\+91\d{10}$" maxlength="13" required title="Phone number must be 10 digits starting with +91" oninput="autoPrefix()">
-            <label for="email">Email:</label>
-            <input type="email" name="email">
-            <label for="adhaar">Aadhaar number:</label>
-            <input type="text" name="adhaar" id="adhaar" pattern="\d{12}" maxlength="12" required title="Aadhaar number must be exactly 12 digits">
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender" placeholder="Select gender">
-                <option value="" disabled selected hidden> Select Gender</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-            </select>
-            <button type="submit">Submit</button>
+        <div class="header">
+            <div class="header-content">
+                <div class="header-image">
+                    <img src="the-human-icon-and-logo-vector.jpg" alt="Doctor">
+                </div>
+                <div class="header-text">
+                    <h1>New Patient Enrollment</h1>
+                    <p>Dr. Name</p>
+                </div>
+            </div>
+        </div>
+
+        <form id="patientForm" class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Sex</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Please Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="height">Height (inches)</label>
+                    <input type="number" id="height" name="height" required>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (pounds)</label>
+                    <input type="number" id="weight" name="weight" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="adhaar">Aadhaar Number</label>
+                <input type="text" id="adhaar" name="adhaar" maxlength="13" required>
+            </div>
+
+            <div class="form-group">
+                <label for="maritalStatus">Marital Status</label>
+                <select id="maritalStatus" name="maritalStatus" required>
+                    <option value="">Please Select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widowed">Widowed</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" placeholder="(555) 555-5555" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+
+            <div class="section-title">Taking any medications, currently?</div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="medications" value="yes"> Yes
+                </label>
+                <label>
+                    <input type="radio" name="medications" value="no"> No
+                </label>
+            </div>
+
+            <div class="section-title">Additional Information</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="diseaseDuration">Suffering From Disease Since (Years)</label>
+                    <input type="number" id="diseaseDuration" name="diseaseDuration" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="medicalDescription">Medical Description</label>
+                <textarea id="medicalDescription" name="medicalDescription" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="languages">Languages Spoken</label>
+                <input type="text" id="languages" name="languages" required>
+            </div>
+
+            <div class="form-group">
+                <label for="preferredNurse">Preferred Nurse</label>
+                <input type="text" id="preferredNurse" name="preferredNurse" required>
+            </div>
+
+            <button type="submit">SUBMIT</button>
         </form>
     </div>
-    
+
     <script>
-        // Function to auto-prefix contact number with +91
-        function autoPrefix() {
-            const contactInput = document.getElementById("contact");
-            const value = contactInput.value;
+         document.getElementById('patientForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
 
-            // If the value doesn't start with '+91', prepend it
-            if (!value.startsWith("+91")) {
-                contactInput.value = "+91" + value.replace(/^(\+91)/, "");
-            }
+            // Basic form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
 
-            // Limit the input to 13 characters: '+91' (3 chars) + 10 digits
-            if (contactInput.value.length > 13) {
-                contactInput.value = contactInput.value.slice(0, 13);
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'red';
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+
+            if (isValid) {
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const fullName = `${firstName} ${lastName}`;
+
+                // Format the form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                data.name = fullName;
+                // Send the data to the register API using fetch
+                try {
+                    const response = await fetch('/postva', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    // Check if the response is successful
+                    if (response.ok) {
+                        const result = await response.json();
+                        alert('Registration successful!'); // Or any other success message
+                        console.log(result); // You can log or handle the result
+                        this.reset(); // Reset the form after successful submission
+                    } else {
+                        const errorData = await response.json();
+                        alert(`Error: ${errorData.message || 'Something went wrong'}`);
+                    }
+                } catch (error) {
+                    console.error('Error during registration:', error);
+                    alert('There was an error with your registration. Please try again later.');
+                }
+            } else {
+                alert('Please fill in all required fields.');
             }
+        });
+        // Phone number formatting
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 0) {
+                value = `(${value.slice(0,3)}) ${value.slice(3,6)}-${value.slice(6,10)}`;
+            }
+            input.value = value;
         }
-        </script>
+
+        document.getElementById('phone').addEventListener('input', function() {
+            formatPhoneNumber(this);
+        });
+
+        document.getElementById('emergencyPhone').addEventListener('input', function() {
+            formatPhoneNumber(this);
+        });
+    </script>
 </body>
 </html>

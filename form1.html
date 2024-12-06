@@ -3,38 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/form.css">
+    <title>NURSE REGISTRATION FORM</title>
+    <link rel="stylesheet" href="form_NEW.css">
 </head>
 <body>
     <!-- <h1 class="header">Register Page</h1> -->
     <div class="container">
-        <form action="/post" method="post" autocomplete="off" >
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+        <div class="header">
+            <div class="header-content">
+                <div class="header-image">
+                    <img src="the-human-icon-and-logo-vector.jpg" alt="Nurse">
+                </div>
+                <div class="header-text">
+                    <h1>New Nurse Registration Form</h1>
+                    <p>Welcome to the team!</p>
+                </div>
+            </div>
+        </div>
 
-            <label for="contact">Contact number:</label>
-            <input type="text" id="contact" name="contact" maxlength="13" required oninput="autoPrefix()">
+        <form id="nurseForm" class="form-container" method="post" autocomplete="off">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-            <label for="email">Email:</label>
-            <input type="email" name="email" required>
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="text" id="contact" name="contact" maxlength="13" required>
+            </div>
 
-            <label for="adhaar">Aadhaar number:</label>
-            <input type="text" name="adhaar" id="adhaar" pattern="\d{12}" maxlength="12" required title="Aadhaar number must be exactly 12 digits" oninput="validateAadhaar()">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-            <label for="medical">Nurse Unique ID:</label>
-            <input type="text" name="unique" id="unique" placeholder="12345/ABC/2021" required>
+            <div class="form-group">
+                <label for="adhaar">Aadhaar Number</label>
+                <input type="text" id="adhaar" name="adhaar" maxlength="12" pattern="\d{12}" required>
+            </div>
 
-            <label for="gender">Gender:</label>
-            <select name="gender" id="gender" required>
-                <option value="" disabled selected hidden> Select Gender</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-            </select>
+            <div class="form-group">
+                <label for="unique">Nurse Unique ID</label>
+                <input type="text" id="unique" name="unique" placeholder="12345/ABC/2021" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected hidden>Select Gender</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="medical_spec">Medical Specification</label>
+                <input type="text" id="medical_spec" name="medical_spec" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="languages">Languages Spoken</label>
+                <input type="text" id="languages" name="languages" required>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Experience (Years)</label>
+                <input type="number" id="experience" name="experience" required>
+            </div>
+
+            <div class="form-group">
+                <label for="preferences">Preferences</label>
+                <textarea id="preferences" name="preferences" required></textarea>
+            </div>
 
             <button type="submit">Submit</button>
         </form>
-    </div>
 
     <script>
         // Function to auto-prefix contact number with +91
@@ -52,6 +106,47 @@
                 contactInput.value = contactInput.value.slice(0, 13);
             }
         }
+
+        //alert part
+        // Add event listener for form submission
+        document.getElementById('nurseForm').addEventListener('submit', async function (e) {
+            e.preventDefault();  // Prevent default form submission
+
+            // Auto-prefix contact number
+            autoPrefix();
+
+            // Gather form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                // Send the form data to the backend using fetch API
+                const response = await fetch('/post', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                console.log("request:", JSON.stringify(data), " response: ", response);
+                const responseData = await response.json();
+                if (response.ok) {
+                // Show success alert and reset form
+                alert(responseData.message);  // Show success message
+                document.getElementById('nurseForm').reset();  // Clear the form
+            } else {
+                // Show error alert
+                alert(responseData.message || 'Something went wrong');  // Show error message
+            }
+        } catch (error) {
+            // Handle any errors during the request
+            console.error('Error submitting form:', error);
+            alert(`Error: ${error.message}`);
+        }
+        });
 
         // Function to validate Aadhaar number
         // function validateAadhaar() {
@@ -120,27 +215,28 @@
         //         [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]
         //     ];
 
-        //     let number = aadhaar.split('').map(Number);
-        //     let check = 0;
+        //     const check = (str) => {
+        //         let c0 = 0;
+        //         for (let i = 0; i < 12; i++) {
+        //             c0 = d[c0][p[i][parseInt(str.charAt(i))]];
+        //         }
+        //         return c0 === 0;
+        //     };
 
-        //     for (let i = 0; i < 12; i++) {
-        //         check = c[check][p[i % 8][number[i]]];
-        //     }
-
-        //     return check === 0;
+        //     return check(aadhaar);
         // }
 
-        // // Validate the form before submission
-        // function validateForm() {
-        //     const aadhaar = document.getElementById("adhaar").value;
-        //     if (!isValidAadhaar(aadhaar)) {
-        //         alert("Invalid Aadhaar number.");
-        //         return false; // Prevent form submission if invalid
-        //     }
-        //     return true; // Allow form submission
-        // }
+        // Submit handler function to validate form and submit
+        function validateAndSubmitForm() {
+            var form = document.querySelector('form');
+            var aadhaarInput = document.getElementById('adhaar');
+
+            if (isValidAadhaar(aadhaarInput.value)) {
+                form.submit();
+            } else {
+                alert("Invalid Aadhaar number. Please check the format.");
+            }
+        }
     </script>
 </body>
 </html>
-
-<!-- onsubmit="return validateForm() -->

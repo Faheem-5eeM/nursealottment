@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Dashboard</title>
-    <link rel="stylesheet" href="views/styles.css"> <!-- Ensure the link to CSS is correct -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Ensure the link to CSS is correct -->
 </head>
 <body>
-    <h2>Welcome, <%= nurse.name %></h2>
+    <div class="header">
+        <div class="avatar">
+            <img src="avatar-placeholder.png" alt="Nurse Avatar">
+        </div>
+        <div class="header__button">
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
 
-    <h3> Patients</h3>
+    <h2>Welcome, <%= nurse.name %></h2>
+    <h3>Patients</h3>
+
     <div id="patients" class="patients-container">
         <% if (patients && patients.length > 0) { %>
             <% patients.forEach(function(patient) { %>
@@ -18,19 +27,12 @@
                     <p><strong>Contact:</strong> <%= patient.contact %></p>
                     <p><strong>Email:</strong> <%= patient.email %></p>
                     <p><strong>Gender:</strong> <%= patient.gender %></p>
+                    <button class="connect-button">Connect</button>
                 </div>
             <% }) %>
         <% } else { %>
             <p>No patients found.</p>
         <% } %>
     </div>
-
-    <div class="header__button">
-        <a href="/logout">
-         Logout
-        </a>
-      </div>
-
- 
 </body>
 </html>

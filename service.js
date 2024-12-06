@@ -3,16 +3,18 @@ const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const port = 3079;
+const port = 3000;
 const app = express();
 
 app.use(express.static(__dirname));
+app.use(express.static('public'));
+app.use(express.json());
 app.set('view engine', 'ejs');
 // Set the path to your 'views' directory
 app.set('views', path.join(__dirname, 'views'));
 
 // Body parser middleware (use only once)
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // MongoDB connection for Nurses
 const nurseDb = mongoose.createConnection('mongodb://localhost:27017/nurses');
@@ -50,7 +52,7 @@ const patientSchema = new mongoose.Schema({
 const Patient = patientDb.model("datas", patientSchema); // Model for patients
 
 // Serve initial page
-app.get('//', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'initialpage.html')); // Ensure index.html is in the root directory
 });
 
@@ -63,7 +65,8 @@ app.get('/nurse-login', (req, res) => {
 // Nurse login POST request
 app.post('/login', async (req, res) => {
     const { name, unique } = req.body;  // Extract name and unique ID from the form data
-
+    console.log(req.body);
+    
     if (!name || !unique) {
         return res.status(400).send('Name and Unique ID are required');
     }
@@ -99,11 +102,22 @@ app.get('/nurse-register', (req, res) => {
 app.post('/post', async (req, res) => {
     const { name, contact, email, adhaar, unique, gender } = req.body;
 
+    console.log("hh1: ",req.body, name, contact, email, adhaar, unique, gender );
     if (!name || !contact || !email || !adhaar || !unique || !gender) {
         return res.status(400).send("All fields are required");
     }
 
-    try {
+    try {// Check if the email already exists
+        const existingNurse = await Nurse.findOne({ email: email });
+        if (existingNurse) {
+            return res.status(400).send("Email already in use");
+        }
+
+        // Check if the unique ID already exists
+        const existingUnique = await Nurse.findOne({ unique: unique });
+        if (existingUnique) {
+            return res.status(400).send("Unique ID already in use");
+        }
         const nurse = new Nurse({
             name,
             contact,
@@ -166,6 +180,7 @@ app.get('/user-register', (req, res) => {
 app.post('/postva', async (req, res) => {
     const { name, contact, email, adhaar, gender } = req.body;
 
+    console.log("hh: ",name, contact, email, adhaar, gender);
     if (!name || !contact || !email || !adhaar || !gender) {
         return res.status(400).send("All fields are required");
     }
@@ -233,6 +248,14 @@ app.get('/logout', (req, res) => {
   // Admin dashboard route
 
 
+//   app.get('/jj', async (req, res) => {
+    
+//     const nurse = await Nurse.find({});
+//     const patients = await Nurse.find({});
+//     nurse.name = "niz";
+//     // Destroy the user session or token
+//     res.render("nurse-dashboard", {patients,nurse})
+//     });
 
 // Start the server
 app.listen(port, () => {

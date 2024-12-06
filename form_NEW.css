@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(242,1,1,1) 20%, rgba(91,74,251,1) 68%);
+  padding: 20px;
+
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background: rgb(63,94,251);
+  /* background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(242,1,1,1) 20%, rgba(91,74,251,1) 68%); */
+  padding: 20px;
+  color: white;
+  position: relative;
+  height: 150px;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+  padding: 5px;
+}
+
+.header-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.header-text h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.form-container {
+  padding: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font-size: 14px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.radio-group {
+  margin: 10px 0;
+}
+
+.radio-group label {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.radio-group input {
+  width: auto;
+  margin-right: 5px;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #333;
+  margin: 25px 0 15px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+button {
+  background: rgb(251, 63, 63);
+  
+}
+
+button:hover {
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(242,1,1,1) 20%, rgba(91,74,251,1) 68%);
+}
+
+
+/* Keep the existing CSS styles for the form */
+
+/* New styles added for Aadhaar number field */
+.form-group input[type="text"][maxlength="13"] {
+  text-transform: uppercase; /* Ensure Aadhaar number is entered in uppercase */
+}
+
+/* Styles for form fields */
+input[type="number"], input[type="text"], textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #1a237e;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 20px;
+}

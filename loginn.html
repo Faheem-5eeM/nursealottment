@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #2196f3 0%, #4CAF50 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,12 +23,22 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 320px;
         }
 
         h2 {
             text-align: center;
             color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 22px;
+        }
+
+        img.logo {
+            width: 40px;
+            height: 40px;
         }
 
         label {
@@ -47,6 +57,7 @@
             border-radius: 4px;
             font-size: 14px;
             box-sizing: border-box;
+            transition: border-color 0.3s;
         }
 
         input[type="text"]:focus,
@@ -58,16 +69,17 @@
         button {
             width: 100%;
             padding: 10px;
-            background-color: #007BFF;
+            background: linear-gradient(135deg, #2196f3 0%, #4CAF50 100%);
             color: white;
             font-size: 16px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background 0.3s ease-in-out;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #070707 0%, #912121 100%);
         }
 
         .form-container a {
@@ -77,27 +89,67 @@
             display: block;
             margin-top: 15px;
         }
+
+        small {
+            display: block;
+            color: #777;
+            font-size: 12px;
+            margin-top: -12px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Nurse Login</h2>
-        <form action="/login" method="POST" autocomplete="off">
+        <h2>
+            <img src="the-human-icon-and-logo-vector.jpg" alt="User Logo" class="logo">
+            Nurse Login
+        </h2>
+        <form id="loginForm"  method="POST" autocomplete="off">
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" required aria-describedby="name-help">
             <small id="name-help">Enter your full name</small>
-            <br><br>
             
             <label for="unique">Unique Nurse ID:</label>
             <input type="text" name="unique" id="unique" required aria-describedby="unique-help">
             <small id="unique-help">Enter your unique nurse ID number</small>
-            <br><br>
             
             <button type="submit">Login</button>
         </form>
-       
     </div>
-    
-    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();  // Prevent default form submission
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+                const responseData = await response.json();
+                if (response.ok) {
+                // Show success alert and reset form
+                alert(responseData.message);  // Show success message
+                document.getElementById('nurseForm').reset();  // Clear the form
+            } else {
+                // Show error alert
+                alert(responseData.message || 'Something went wrong');  // Show error message
+            }
+        } catch (error) {
+            // Handle any errors during the request
+            console.error('Error submitting form:', error);
+            alert(`Error: ${error.message}`);
+        }
+        });
+    </script>
 </body>
 </html>
