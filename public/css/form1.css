@@ -11,7 +11,7 @@ body {
   font-family: "Poppins", sans-serif;
   background: linear-gradient(to bottom, #e0eafc, #ffffff);
   color: #333;
-  background-image: url(nurses-are-well-good-taken-care-elderly-patients-hospital-bed-patients-medical-healthcare-concept.jpg);
+  background-image: url('/images/nurses-are-well-good-taken-care-elderly-patients-hospital-bed-patients-medical-healthcare-concept.jpg');
   background-size: cover;
   background-attachment: fixed;
   display: flex;

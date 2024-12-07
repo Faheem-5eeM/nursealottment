@@ -33,15 +33,14 @@
 </head>
 <body>
     <div class="message">
-        <h1>Registration Successful!</h1>
-        <p>Your registration has been completed successfully.</p>
+        <h1><%= title %></h1>
+        <p><%= message %></p> 
         
         <!-- Image for successful login -->
         <img src="https://static.vecteezy.com/system/resources/previews/024/741/882/original/mobile-app-account-registered-successfully-login-success-via-smartphone-concept-illustration-flat-design-eps10-modern-graphic-element-for-pop-up-information-ui-infographic-icon-vector.jpg" alt="Success Login" class="success-image">  <!-- Update this path to your actual image location -->
 
         <p>Thank you for registering . You can now log in to your account.</p>
-        
-        <a href="/nurse-login">Go to Nurse Login</a>
+        <a href="<%= redirectUrl %>">Go to Login</a>
     </div>
 </body>
 </html>

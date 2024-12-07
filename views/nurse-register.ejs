@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NURSE REGISTRATION FORM</title>
+    <link rel="stylesheet" href="css/form_NEW.css">
+</head>
+<body>
+    <!-- <h1 class="header">Register Page</h1> -->
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-image">
+                    <img src="images/the-human-icon-and-logo-vector.jpg" alt="Nurse">
+                </div>
+                <div class="header-text">
+                    <h1>New Nurse Registration Form</h1>
+                    <p>Welcome to the team!</p>
+                </div>
+            </div>
+        </div>
+        <% if (error) { %>
+            <div class="error-message" style="color: red; text-align: center; margin-block: 10px;">
+                <%= error %>
+            </div>
+        <% } %>
+        <form action="post" class="form-container" method="post" autocomplete="off">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="<%= formData ? formData.name : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input type="text" id="contact" name="contact" maxlength="13" value="<%= formData ? formData.contact : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="<%= formData ? formData.email : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="adhaar">Aadhaar Number</label>
+                <input type="text" id="adhaar" name="adhaar" maxlength="12" pattern="\d{12}" value="<%= formData ? formData.adhaar : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="unique">Nurse Unique ID</label>
+                <input type="text" id="unique" name="unique" placeholder="12345/ABC/2021" value="<%= formData ? formData.unique : '' %>" required>
+            </div>
+        
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled hidden <%= !formData || !formData.gender ? 'selected' : '' %>>Select Gender</option>
+                        <option value="Female" <%= formData && formData.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                        <option value="Male" <%= formData && formData.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                        <option value="other" <%= formData && formData.gender === 'other' ? 'selected' : '' %>>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" value="<%= formData ? formData.age : '' %>" required>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="medical_spec">Medical Specification</label>
+                <input type="text" id="medical_spec" name="medical_spec" value="<%= formData ? formData.medical_spec : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" value="<%= formData ? formData.location : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="languages">Languages Spoken</label>
+                <input type="text" id="languages" name="languages" value="<%= formData ? formData.languages : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="experience">Experience (Years)</label>
+                <input type="number" id="experience" name="experience" value="<%= formData ? formData.experience : '' %>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="preferences">Preferences</label>
+                <textarea id="preferences" name="preferences" required><%= formData ? formData.preferences : '' %></textarea>
+            </div>
+        
+            <button type="submit">Submit</button>
+        </form>
+        
+        <% if (error) { %>
+            <div class="error-message" style="color: red; text-align: center; margin-block: 10px;">
+                <%= error %>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

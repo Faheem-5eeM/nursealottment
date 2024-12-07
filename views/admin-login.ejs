@@ -108,10 +108,10 @@
 <body>
     <div class="form-container">
         <h2>
-            <img src="the-human-icon-and-logo-vector.jpg" alt="User Logo" class="logo">
+            <img src="images/the-human-icon-and-logo-vector.jpg" alt="User Logo" class="logo">
             Admin Login
         </h2>
-        <form id="adminloginForm" method="POST" autocomplete="off">
+        <form action="/admin-login" method="POST" autocomplete="off">
             <label for="username">Username:</label>
             <input type="text" name="username" required>
             <small id="name-help">Enter your full name</small>
@@ -123,53 +123,12 @@
             
             <button type="submit">Login</button>
 
-            <!-- Error Message (if login fails) -->
-            <div class="error-message">
-                <!-- This will be populated with an error message if necessary -->
-            </div>
+            <% if (error) { %>
+                <div class="error-message" style="color: red; text-align: center; margin-top: 10px;">
+                    <%= error %>
+                </div>
+            <% } %>
         </form>
     </div>
-   
-    <script>
-        document.getElementById('adminloginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();  // Prevent normal form submission
-
-            // Get the form data
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            // Clear previous error message
-            document.getElementById('error-message').textContent = '';
-
-            // Perform basic validation
-            if (!username || !password) {
-                document.getElementById('error-message').textContent = 'Username and Password are required';
-                return;
-            }
-
-            try {
-                const response = await fetch('/admin-login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    // Redirect to the admin dashboard if login is successful
-                    window.location.href = '/admin-dashboard';
-                } else {
-                    // Display error message if login fails
-                    document.getElementById('error-message').textContent = data.error || 'Invalid username or password';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('error-message').textContent = 'There was an error with your login. Please try again later.';
-            }
-        });
-    </script>
 </body>
 </html>

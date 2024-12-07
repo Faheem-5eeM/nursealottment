@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Login</title>
+    <title>Nurse Login</title>
     <style>
         /* General reset */
         body, html {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #2196f3 0%, #4CAF50 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #6a11cb 0%, #ffffff 100%);
         }
 
         /* Centering the form */
@@ -70,7 +69,7 @@
         button {
             width: 100%;
             padding: 10px;
-            background: linear-gradient(135deg, #6a11cb 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #2196f3 0%, #4CAF50 100%);
             color: white;
             font-size: 16px;
             border: none;
@@ -80,7 +79,7 @@
         }
 
         button:hover {
-            background: linear-gradient(135deg, #3a3a3a 0%, #a91d1d 100%);
+            background: linear-gradient(135deg, #070707 0%, #912121 100%);
         }
 
         .form-container a {
@@ -97,59 +96,51 @@
             font-size: 12px;
             margin-top: -12px;
             margin-bottom: 10px;
+        } 
+        .register-btn {
+            background: linear-gradient(135deg, #FF5722 0%, #FFC107 100%);
+        }
+
+        .register-btn:hover {
+            background: linear-gradient(135deg, #C41C00 0%, #FFD700 100%);
+        } 
+        .register-message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2>
-            <img src="the-human-icon-and-logo-vector.jpg" alt="User Logo" class="logo">
-            Patient Login
+            <img src="images/the-human-icon-and-logo-vector.jpg" alt="User Logo" class="logo">
+            Nurse Login
         </h2>
-        <form id="userloginForm" autocomplete="off">
+        <form action='/login'  method="POST" autocomplete="off">
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" required aria-describedby="name-help">
+            <small id="name-help">Enter your full name</small>
             
-            <label for="adhaar">Aadhar ID:</label>
-            <input type="number" name="adhaar" id="adhaar" required>
+            <label for="unique">Unique Nurse ID:</label>
+            <input type="text" name="unique" id="unique" required aria-describedby="unique-help">
+            <small id="unique-help">Enter your unique nurse ID number</small>
             
             <button type="submit">Login</button>
         </form>
+        <% if (error) { %>
+            <div class="error-message" style="color: red; text-align: center; margin-top: 10px;">
+                <%= error %>
+            </div>
+        <% } %>
+        <p class="register-message">Don’t have an account? Register below:</p>
+        <button class="register-btn" onclick="redirectToRegister()">Register</button>
     </div>
     <script>
-        document.getElementById('userloginForm').addEventListener('submit', async function (e) {
-            e.preventDefault();  // Prevent default form submission
-
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-
-            try {
-                const response = await fetch('/userlogin', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
-
-                const responseData = await response.json();
-                if (response.ok) {
-                // Show success alert and reset form
-                alert(responseData.message);  // Show success message
-                document.getElementById('nurseForm').reset();  // Clear the form
-            } else {
-                // Show error alert
-                alert(responseData.message || 'Something went wrong');  // Show error message
-            }
-        } catch (error) {
-            // Handle any errors during the request
-            console.error('Error during login::', error);
-            alert(`Error: ${error.message}`);
+        function redirectToRegister() {
+            window.location.href = '/nurse-register';
         }
-        });
     </script>
 </body>
 </html>
