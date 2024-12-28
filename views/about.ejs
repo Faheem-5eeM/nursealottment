@@ -3,9 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>About Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #9face6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .about-container {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 30px;
+      width: 90%;
+      max-width: 1200px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-container h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .about-container p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .about-container a {
+      display: block;
+      margin: 30px auto 0;
+      text-decoration: none;
+      color: #fff;
+      background: #74ebd5;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      text-align: center;
+      width: 200px;
+    }
+
+    .about-container a:hover {
+      background: #67d8c4;
+    }
+  </style>
 </head>
 <body>
-  About Page
+  <div class="about-container">
+    <h1>About the Project</h1>
+    <p>
+      This project focuses on the development of a Nurse-Old Patient Allocation System, designed to revolutionize home healthcare by optimizing care delivery. 
+      It provides an efficient and organized platform that facilitates seamless matching between patients and professional nurses, ensuring timely and personalized 
+      care. By addressing accessibility and affordability challenges, the system empowers patients to receive quality treatment in the comfort of their homes.
+    </p>
+    <p>
+      The application integrates advanced features such as role-based access control, secure data management, and scalability to accommodate a growing user base. 
+      It not only enhances patient-centered care but also supports healthcare professionals by offering flexible work management tools. This innovative approach 
+      aligns with the broader goal of transforming healthcare delivery systems to be more efficient, accessible, and cost-effective.
+    </p>
+    <p>
+      By leveraging technology, the project aims to create significant social and economic impact, fostering better health outcomes, reducing costs, and 
+      expanding job opportunities in the home healthcare sector. It stands as a testament to the potential of digital solutions in addressing modern 
+      healthcare challenges.
+    </p>
+  </div>
 </body>
 </html>
