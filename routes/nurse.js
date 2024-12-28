@@ -101,6 +101,84 @@ app.post('/post', async (req, res) => {
         });
     }
 });
+app.post('/connect-patient', async (req, res) => {
+    const { nurseId, patientId } = req.body;
+    try {
+        const nurse = await Nurse.findById(nurseId);
+        const patient = await Patient.findById(patientId);
 
+        if (!nurse || !patient) {
+            return res.status(404).render('nurse-dashboard', {
+                error: 'Nurse or patient not found',
+                nurse,
+                patients: await Patient.find({}) // Ensure patients list is passed
+            });
+        }
+
+        // Connect the patient to the nurse
+        nurse.patients.push(patient._id);
+        await nurse.save();
+
+        patient.nurse = nurse._id;
+        await patient.save();
+
+        // Fetch updated patients
+        const updatedPatients = await Patient.find({});
+
+        // Render the updated dashboard
+        res.render('nurse-dashboard', {
+            nurse,
+            patients: updatedPatients
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('nurse-dashboard', {
+            error: 'Error connecting patient',
+            nurse: await Nurse.findById(nurseId),
+            patients: await Patient.find({}) // Ensure patients list is passed
+        });
+    }
+});
+
+app.post('/disconnect-patient', async (req, res) => {
+    const { nurseId, patientId } = req.body;
+    try {
+        const nurse = await Nurse.findById(nurseId);
+        const patient = await Patient.findById(patientId);
+
+        if (!nurse || !patient) {
+            return res.status(404).render('nurse-dashboard', {
+                error: 'Nurse or patient not found',
+                nurse,
+                patients: await Patient.find({}) // Ensure patients list is passed
+            });
+        }
+
+        // Disconnect the patient from the nurse
+        nurse.patients = nurse.patients.filter(
+            (id) => id.toString() !== patient._id.toString()
+        );
+        await nurse.save();
+
+        patient.nurse = null;
+        await patient.save();
+
+        // Fetch updated patients
+        const updatedPatients = await Patient.find({});
+
+        // Render the updated dashboard
+        res.render('nurse-dashboard', {
+            nurse,
+            patients: updatedPatients
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('nurse-dashboard', {
+            error: 'Error disconnecting patient',
+            nurse: await Nurse.findById(nurseId),
+            patients: await Patient.find({}) // Ensure patients list is passed
+        });
+    }
+});
 
 module.exports = app;

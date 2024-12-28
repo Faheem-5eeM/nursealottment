@@ -28,9 +28,10 @@ app.get('/admin-dashboard', async (req, res) => {
       // Get the total count of nurses and patients
       const nurseCount = await Nurse.countDocuments();
       const patientCount = await Patient.countDocuments();
+      const connectedPatientsCount = await Patient.countDocuments({ 'nurse': { $ne: null } }); 
 
       // Render the Handlebars template and pass dynamic data
-      res.render('admin-dashboard', { nurseCount, patientCount });
+      res.render('admin-dashboard', { nurseCount, patientCount, connectedPatientsCount });
   } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');

@@ -61,6 +61,10 @@
                 <h2>Total Patients</h2>
                 <p id="patientCount"><%= patientCount %></p> <!-- Inject patient count here -->
             </div>
+            <div class="card" data-connected-patient-count="<%= connectedPatientsCount %>">
+                <h2>Connected Patients</h2>
+                <p id="connectedPatientsCount"><%= connectedPatientsCount %></p> <!-- Inject connected patient count here -->
+            </div>
         </div>
 
         <h3>Patient vs Nurse Count</h3>
@@ -73,13 +77,14 @@
         // Get the data attributes from the HTML elements
         const nurseCount = document.querySelector('.card[data-nurse-count]').dataset.nurseCount;
         const patientCount = document.querySelector('.card[data-patient-count]').dataset.patientCount;
+        const connectedPatientsCount = document.querySelector('.card[data-connected-patient-count]').dataset.connectedPatientCount;
 
         // Create the chart data
         const data = {
-            labels: ['Nurses', 'Patients'],
+            labels: ['Nurses', 'Patients', 'Connected Patients'],
             datasets: [{
                 label: 'Total Count',
-                data: [nurseCount, patientCount],  // Use the injected data here
+                data: [nurseCount, patientCount, connectedPatientsCount],  // Use the injected data here
                 backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'],
                 borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
                 borderWidth: 1

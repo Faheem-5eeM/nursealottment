@@ -24,7 +24,10 @@ app.post('/userlogin', async (req, res) => {
         }
 
         // Fetch all nurses from the nurseDb
-        const nurses = await Nurse.find({});
+        // const nurses = await Nurse.find({});
+                
+        // Find the nurse(s) connected to this patient
+        const nurses = await Nurse.find({ '_id': { $in: patient.nurse } });
 
         // Render the user-dashboard and pass both the patient data and nurses data
         res.render('user-dashboard', {

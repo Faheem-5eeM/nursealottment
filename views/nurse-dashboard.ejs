@@ -9,30 +9,95 @@
 <body>
     <div class="header">
         <div class="avatar">
-            <img src="images/avatar-placeholder.png" alt="Nurse Avatar">
+            <img src="images/the-human-icon-and-logo-vector.jpg" alt="Nurse Avatar">
         </div>
         <div class="header__button">
             <a href="/logout">Logout</a>
         </div>
     </div>
 
-    <h2>Welcome, <%= nurse.name %></h2>
+    <h2>Welcome, <%= nurse.name %></h2> 
+    <div class="filter-buttons">
+        <button id="showMyPatients" class="my-patients-button">My Patients</button>
+        <button id="showAllPatients" class="all-patients-button" style="display: none;">All Patients</button>
+    </div>
+    
     <h3>Patients</h3>
-
     <div id="patients" class="patients-container">
         <% if (patients && patients.length > 0) { %>
             <% patients.forEach(function(patient) { %>
-                <div class="patient-card">
+                <div class="patient-card" id="patient-<%= patient._id %>" data-connected="<%= nurse.patients.includes(patient._id) ? 'true' : 'false' %>">
                     <h4><%= patient.name %></h4>
                     <p><strong>Contact:</strong> <%= patient.contact %></p>
                     <p><strong>Email:</strong> <%= patient.email %></p>
                     <p><strong>Gender:</strong> <%= patient.gender %></p>
-                    <button class="connect-button">Connect</button>
+                    <% if (nurse.patients.includes(patient._id)) { %>
+                        <p><strong>Connected Nurse:</strong> <%= nurse.name %></p>
+                        <form action="/disconnect-patient" method="POST">
+                            <input type="hidden" name="nurseId" value="<%= nurse._id %>">
+                            <input type="hidden" name="patientId" value="<%= patient._id %>">
+                            <div class="button-container">
+                                <button type="submit" class="connect-button connected" disabled>Connected</button>
+                                <button type="submit" class="delete-button">Disconnect</button>
+                            </div>
+                        </form>
+                    <% } else { %>
+                        <form action="/connect-patient" method="POST">
+                            <input type="hidden" name="nurseId" value="<%= nurse._id %>">
+                            <input type="hidden" name="patientId" value="<%= patient._id %>">
+                            <div class="button-container">
+                                <button type="submit" class="connect-button">Connect</button>
+                            </div>
+                        </form>
+                    <% } %> 
                 </div>
             <% }) %>
         <% } else { %>
             <p>No patients found.</p>
         <% } %>
     </div>
+    <div class="no-patients-message" style="display: none;">
+        <p>No patients connected.</p>
+    </div>
+    <script>
+        const showMyPatientsButton = document.getElementById('showMyPatients');
+        const showAllPatientsButton = document.getElementById('showAllPatients');
+        const patientCards = document.querySelectorAll('.patient-card');
+        const noPatientsMessage = document.querySelector('.no-patients-message');
+
+        showMyPatientsButton.addEventListener('click', () => {
+            let hasConnectedPatients = false;  // Track if any connected patients are found
+
+            patientCards.forEach(card => {
+                if (card.dataset.connected === 'true') {
+                    card.style.display = 'block';  // Show connected patients
+                    hasConnectedPatients = true;  // Mark as having connected patients
+                } else {
+                    card.style.display = 'none';  // Hide non-connected patients
+                }
+            });
+
+            if (!hasConnectedPatients) {
+                noPatientsMessage.style.display = 'block';  // Show the "No patients connected" message
+            } else {
+                noPatientsMessage.style.display = 'none';  // Hide the message if there are connected patients
+            }
+
+            showMyPatientsButton.style.display = 'none';
+            showAllPatientsButton.style.display = 'block';
+        });
+
+        showAllPatientsButton.addEventListener('click', () => {
+            patientCards.forEach(card => {
+                card.style.display = 'block';  // Show all patients
+            });
+
+            noPatientsMessage.style.display = 'none';  // Hide the "No patients connected" message
+
+            showMyPatientsButton.style.display = 'block';
+            showAllPatientsButton.style.display = 'none';
+        });
+
+    </script>
 </body>
 </html>
