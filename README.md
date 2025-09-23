@@ -56,5 +56,7 @@ It enhances operational efficiency, ensures optimal nurse utilization, and impro
    ```bash
    npm start
 
+---
+
 ### 📈 Demo
 Live demo: https://nurse-allottment.onrender.com
