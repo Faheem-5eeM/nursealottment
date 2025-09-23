@@ -40,16 +40,20 @@ It enhances operational efficiency, ensures optimal nurse utilization, and impro
    ```bash
    git clone https://github.com/Irfan-Mazhar/nursealottment.git
 2. Navigate into project directory:
+   ```bash
    cd nursealottment
 
 3. Install Dependencies:
+   ```bash
    npm i
 
 4. Create a .env file in the root directory with:
+   ```bash
    MONGO_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
    
-5. Start the server:
+6. Start the server:
+   ```bash
    npm start
 
 ### 📈 Demo
